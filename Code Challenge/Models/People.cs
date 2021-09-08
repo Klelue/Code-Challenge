@@ -23,9 +23,20 @@ namespace Code_Challenge.Models
 
         private String ldapUser;
 
+        private Room room;
+
+
         public People(string ldapUser)
         {
             LdapUser = ldapUser;
+        }
+
+       // [JsonIgnore]
+
+        public Room? Room
+        {
+            get => room;
+            set => room = value;
         }
 
         [Key]
@@ -42,7 +53,7 @@ namespace Code_Challenge.Models
             set => title = value;
         }
 
-        [RegularExpression(@"[A-Z][a-z]+(\s[A-Z][a-z]+)?")]
+        [RegularExpression(@"[A-Z][a-z]+")]
         [Required]
         public String LastName
         {
@@ -50,7 +61,7 @@ namespace Code_Challenge.Models
             set => lastName = value;
         }
 
-        [RegularExpression(@"[A-Z][a-z]+")]
+        [RegularExpression(@"[A-Z][a-z]+(\s[A-Z][a-z]+)?")]
         [Required]
         public String Firstname
         {

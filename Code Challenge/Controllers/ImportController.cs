@@ -9,7 +9,7 @@ using Code_Challenge.Util;
 
 namespace Code_Challenge.Controllers
 {
-    [Route("api/import/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ImportController : ControllerBase
     {

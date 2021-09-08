@@ -20,6 +20,8 @@ namespace Code_Challenge.Util
                 
                 rooms.Add(createRoom(values));
             }
+
+            return rooms;
         }
 
         private Room createRoom(string[] values)

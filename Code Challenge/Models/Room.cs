@@ -33,6 +33,7 @@ namespace Code_Challenge.Models
         {
             get => roomNumber;
             set => roomNumber = value;
+
         }
     }
 

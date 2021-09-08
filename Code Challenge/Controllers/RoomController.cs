@@ -7,7 +7,7 @@ using Code_Challenge.Models;
 
 namespace Code_Challenge.Controllers
 {
-    [Route("api/room/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class RoomController : Controller
     {
