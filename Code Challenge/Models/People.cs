@@ -1,28 +1,64 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 
 namespace Code_Challenge.Models
 {
-    [DataContract]
+
     public class People
     {
 
-        [DataMember]
-        private String firstName { get; set; }
 
-        [DataMember]
-        private String lastName { get; set; }
-
-        [DataMember]
-        private String title { get; set; }
-
-        [DataMember]
-        private String nameAddition { get; set; }
-
-        [DataMember]
-        private String ldapUser { get; set; }
+        private String firstName;
 
         
+
+        private String lastName;
+
+        private String title;
+
+        private String nameAddition;
+
+        private String ldapUser;
+
+        [Key]
+        public String LdapUser
+        {
+            get => ldapUser;
+            set => ldapUser = value;
+        }
+
+        [RegularExpression(@"Dr\.")]
+        public String Title
+        {
+            get => title;
+            set => title = value;
+        }
+
+        [RegularExpression(@"[A-Z][a-z]+(\s[A-Z][a-z]+)?")]
+        [Required]
+        public String LastName
+        {
+            get => lastName;
+            set => lastName = value;
+        }
+
+        [RegularExpression(@"[A-Z][a-z]+")]
+        [Required]
+        public String Firstname
+        {
+            get => firstName;
+            set => firstName = value;
+        }
+
+        [RegularExpression(@"[(von)(van)(de)]")]
+        public String NameAddition
+        {
+            get => nameAddition;
+            set => nameAddition = value;
+        }
+
     }
 }
