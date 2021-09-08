@@ -23,6 +23,11 @@ namespace Code_Challenge.Models
 
         private String ldapUser;
 
+        public People(string ldapUser)
+        {
+            LdapUser = ldapUser;
+        }
+
         [Key]
         public String LdapUser
         {
