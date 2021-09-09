@@ -13,8 +13,6 @@ namespace Code_Challenge.Models
 
         private String firstName;
 
-        
-
         private String lastName;
 
         private String title;
@@ -23,21 +21,12 @@ namespace Code_Challenge.Models
 
         private String ldapUser;
 
-        private Room room;
-
 
         public People(string ldapUser)
         {
             LdapUser = ldapUser;
         }
 
-       // [JsonIgnore]
-
-        public Room? Room
-        {
-            get => room;
-            set => room = value;
-        }
 
         [Key]
         public String LdapUser

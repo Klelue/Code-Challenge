@@ -12,20 +12,20 @@ namespace Code_Challenge.Models
         
         private string roomNumber;
 
-        private List<People> residents { get; }
+        private List<People> residents;
 
         public Room(string roomNumber)
         {
             RoomNumber = roomNumber;
         }
 
-        public void AddResident(People resident)
-        {
-            residents.Add(resident);
+        //public void AddResident(People resident)
+        //{
+        //    residents.Add(resident);
 
-            List<ulong> list = new List<ulong>();
+        //    List<ulong> list = new List<ulong>();
        
-        }
+        //}
 
 
         [Key]
@@ -34,6 +34,12 @@ namespace Code_Challenge.Models
             get => roomNumber;
             set => roomNumber = value;
 
+        }
+
+        public List<People> Residents
+        {
+            get => residents;
+            set => residents = value;
         }
     }
 

@@ -21,21 +21,25 @@ namespace Code_Challenge.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Firstname")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("MiddleName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("NameAddition")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RoomNumber")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
                         .HasColumnType("TEXT");
 
                     b.HasKey("LdapUser");
+
+                    b.HasIndex("RoomNumber");
 
                     b.ToTable("People");
                 });
@@ -48,6 +52,18 @@ namespace Code_Challenge.Migrations
                     b.HasKey("RoomNumber");
 
                     b.ToTable("Room");
+                });
+
+            modelBuilder.Entity("Code_Challenge.Models.People", b =>
+                {
+                    b.HasOne("Code_Challenge.Models.Room", null)
+                        .WithMany("Residents")
+                        .HasForeignKey("RoomNumber");
+                });
+
+            modelBuilder.Entity("Code_Challenge.Models.Room", b =>
+                {
+                    b.Navigation("Residents");
                 });
 #pragma warning restore 612, 618
         }

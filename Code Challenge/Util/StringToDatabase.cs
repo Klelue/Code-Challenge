@@ -27,13 +27,16 @@ namespace Code_Challenge.Util
         private Room createRoom(string[] values)
         {
             Room room = new Room(values[0]);
+            List<People> residents = new List<People>();
             for(int i = 1; i < values.Length; i++)
             {
                 if (values[i].Length > 0)
                 {
-                    room.AddResident(createPeople(values[i]));
+                    residents.Add(createPeople(values[i]));
                 }
             }
+
+            room.Residents = residents;
             
             return room;
         }
