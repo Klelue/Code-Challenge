@@ -21,13 +21,15 @@ namespace Code_Challenge.Controllers
             _db = db;
         }
 
-        // GET api/room/
+        // GET api/<RoomController>
+        [HttpGet]
         public IEnumerable<Room> Get()
         {
-            return _db.Room.ToList();
+            return _db.Room.ToArray();
         }
 
-        // GEt api/room/5
+        // GEt api/<RoomController>/5
+        [HttpGet("{id}")]
         public string Get(string roomNuber)
         {
             return _db.Room.Where(x=> x.RoomNumber.Equals(roomNuber)).ToString();

@@ -29,6 +29,7 @@ namespace Code_Challenge.Models
 
 
         [Key]
+        [MaxLength (10)]
         public String LdapUser
         {
             get => ldapUser;
@@ -36,6 +37,7 @@ namespace Code_Challenge.Models
         }
 
         [RegularExpression(@"Dr\.")]
+        [MaxLength (4)]
         public String Title
         {
             get => title;
@@ -43,6 +45,7 @@ namespace Code_Challenge.Models
         }
 
         [RegularExpression(@"[A-Z][a-z]+")]
+        [MaxLength (25)]
         [Required]
         public String LastName
         {
@@ -51,6 +54,7 @@ namespace Code_Challenge.Models
         }
 
         [RegularExpression(@"[A-Z][a-z]+(\s[A-Z][a-z]+)?")]
+        [MaxLength (50)]
         [Required]
         public String Firstname
         {
@@ -59,6 +63,7 @@ namespace Code_Challenge.Models
         }
 
         [RegularExpression(@"[(von)(van)(de)]")]
+        [MaxLength (4)]
         public String NameAddition
         {
             get => nameAddition;

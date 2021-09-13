@@ -23,8 +23,17 @@ namespace Code_Challenge.Util
                 rooms.Add(createRoom(values));
             }
 
-            dbContext.AddRange(rooms);
-            dbContext.SaveChanges();
+            try
+            {
+                dbContext.AddRange(rooms);
+                dbContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
         }
 
         private Room createRoom(string[] values)

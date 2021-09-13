@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Code_Challenge.Util
@@ -8,14 +9,23 @@ namespace Code_Challenge.Util
         public static List<string> readFile(string Filepath)
         {
             List<string> readedFile = new List<string>();
-            using (var reader = new StreamReader(@Filepath))
+            try
             {
-                while(!reader.EndOfStream)
+                using (var reader = new StreamReader(@Filepath))
                 {
-                    string line = reader.ReadLine();
-                    readedFile.Add(line);
+                    while(!reader.EndOfStream)
+                    {
+                        string line = reader.ReadLine();
+                        readedFile.Add(line);
+                    }
                 }
             }
+            catch (IOException e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
 
             return readedFile;
         }

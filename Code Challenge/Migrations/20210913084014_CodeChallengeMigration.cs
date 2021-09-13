@@ -2,7 +2,7 @@
 
 namespace Code_Challenge.Migrations
 {
-    public partial class COdeChallengeMigration : Migration
+    public partial class CodeChallengeMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,7 +10,7 @@ namespace Code_Challenge.Migrations
                 name: "Room",
                 columns: table => new
                 {
-                    RoomNumber = table.Column<string>(type: "TEXT", nullable: false)
+                    RoomNumber = table.Column<string>(type: "TEXT", maxLength: 4, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -21,11 +21,11 @@ namespace Code_Challenge.Migrations
                 name: "People",
                 columns: table => new
                 {
-                    LdapUser = table.Column<string>(type: "TEXT", nullable: false),
-                    Title = table.Column<string>(type: "TEXT", nullable: true),
-                    LastName = table.Column<string>(type: "TEXT", nullable: false),
-                    Firstname = table.Column<string>(type: "TEXT", nullable: false),
-                    NameAddition = table.Column<string>(type: "TEXT", nullable: true),
+                    LdapUser = table.Column<string>(type: "TEXT", maxLength: 10, nullable: false),
+                    Title = table.Column<string>(type: "TEXT", maxLength: 4, nullable: true),
+                    LastName = table.Column<string>(type: "TEXT", maxLength: 25, nullable: false),
+                    Firstname = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    NameAddition = table.Column<string>(type: "TEXT", maxLength: 4, nullable: true),
                     RoomNumber = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>

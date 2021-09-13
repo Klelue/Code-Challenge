@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Code_Challenge.Models;
 using Code_Challenge.Util;
 
 namespace Code_Challenge.Controllers
@@ -23,11 +18,12 @@ namespace Code_Challenge.Controllers
         }
 
 
-        // Post api/import/
+        // Post api/<ImportController>
+        [HttpPost]
         public void Post()
         {
             List<string> values =
-                CSVReader.readFile("C:\\Users\\kluenert\\source\repos\\Code Challenge\\Code Challenge\\sitzplan.csv");
+                CSVReader.readFile("C:\\Users\\kluenert\\source\\repos\\Code Challenge\\Code Challenge\\sitzplan.csv");
             StringToDatabase stringToDatabase = new StringToDatabase();
             stringToDatabase.intoDatabase(values, _db);
 

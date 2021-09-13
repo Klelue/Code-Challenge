@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Code_Challenge.Migrations
 {
     [DbContext(typeof(CodeChallengeDbContext))]
-    [Migration("20210908121851_COdeChallengeMigration")]
-    partial class COdeChallengeMigration
+    [Migration("20210913084014_CodeChallengeMigration")]
+    partial class CodeChallengeMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,23 +20,28 @@ namespace Code_Challenge.Migrations
             modelBuilder.Entity("Code_Challenge.Models.People", b =>
                 {
                     b.Property<string>("LdapUser")
+                        .HasMaxLength(10)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Firstname")
                         .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
                         .IsRequired()
+                        .HasMaxLength(25)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("NameAddition")
+                        .HasMaxLength(4)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("RoomNumber")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
+                        .HasMaxLength(4)
                         .HasColumnType("TEXT");
 
                     b.HasKey("LdapUser");
@@ -49,6 +54,7 @@ namespace Code_Challenge.Migrations
             modelBuilder.Entity("Code_Challenge.Models.Room", b =>
                 {
                     b.Property<string>("RoomNumber")
+                        .HasMaxLength(4)
                         .HasColumnType("TEXT");
 
                     b.HasKey("RoomNumber");

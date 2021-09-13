@@ -19,16 +19,8 @@ namespace Code_Challenge.Models
             RoomNumber = roomNumber;
         }
 
-        //public void AddResident(People resident)
-        //{
-        //    residents.Add(resident);
-
-        //    List<ulong> list = new List<ulong>();
-       
-        //}
-
-
         [Key]
+        [MaxLength (4)]
         public String RoomNumber
         {
             get => roomNumber;
