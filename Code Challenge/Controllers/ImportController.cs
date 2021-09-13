@@ -9,17 +9,28 @@ using Code_Challenge.Util;
 
 namespace Code_Challenge.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class ImportController : ControllerBase
     {
+
+        private readonly CodeChallengeDbContext _db;
+
+        public ImportController(CodeChallengeDbContext db)
+        {
+            _db = db;
+        }
+
+
         // Post api/import/
         public void Post()
         {
             List<string> values =
                 CSVReader.readFile("C:\\Users\\kluenert\\source\repos\\Code Challenge\\Code Challenge\\sitzplan.csv");
             StringToDatabase stringToDatabase = new StringToDatabase();
-            List<Room> rooms = stringToDatabase.intoDatabase(values);
+            stringToDatabase.intoDatabase(values, _db);
+
         }
     }
 }

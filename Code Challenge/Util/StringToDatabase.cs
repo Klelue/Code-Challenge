@@ -5,13 +5,15 @@ using System.Threading.Tasks;
 using System.Threading.Tasks.Sources;
 using Code_Challenge.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Code_Challenge.Util
 {
     public class StringToDatabase
     {
-        public List<Room> intoDatabase(List<string> valuesList) 
+        public void intoDatabase(List<string> valuesList, CodeChallengeDbContext dbContext)
         {
+
             List<Room> rooms = new List<Room>();
 
             foreach (string valueLine in valuesList)
@@ -21,7 +23,8 @@ namespace Code_Challenge.Util
                 rooms.Add(createRoom(values));
             }
 
-            return rooms;
+            dbContext.AddRange(rooms);
+            dbContext.SaveChanges();
         }
 
         private Room createRoom(string[] values)
