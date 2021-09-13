@@ -30,9 +30,9 @@ namespace Code_Challenge.Controllers
 
         // GEt api/<RoomController>/5
         [HttpGet("{id}")]
-        public string Get(string roomNuber)
+        public IEnumerable<Room> Get(string roomNuber)
         {
-            return _db.Room.Where(x=> x.RoomNumber.Equals(roomNuber)).ToString();
+            return _db.Room.Where(x=> x.RoomNumber.Equals(roomNuber)).ToArray();
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Code_Challenge.Util
 
             try
             {
-                dbContext.AddRange(rooms);
+                dbContext.Room.AddRange(rooms);
                 dbContext.SaveChanges();
             }
             catch (Exception e)

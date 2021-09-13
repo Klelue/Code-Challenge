@@ -17,7 +17,6 @@ namespace Code_Challenge.Controllers
             _db = db;
         }
 
-
         // Post api/<ImportController>
         [HttpPost]
         public void Post()
