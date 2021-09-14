@@ -57,6 +57,7 @@ namespace Code_Challenge.Util
         {
             List<string> peopleValues = value.Split(" ").ToList();
             string ldapUser = peopleValues[^1].Substring(1, peopleValues[^1].Length-2);
+            peopleValues.RemoveAt(peopleValues.Count-1);
            
             People people = new People(ldapUser);
 
@@ -69,7 +70,7 @@ namespace Code_Challenge.Util
             string[] nameAdditions = {"von", "van", "de"};
             foreach (string nameAddition in nameAdditions)
             {
-                if (peopleValues.Equals(nameAddition))
+                if (peopleValues.Contains(nameAddition))
                 {
                     people.NameAddition = nameAddition;
                     peopleValues.Remove(nameAddition);
