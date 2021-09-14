@@ -2,7 +2,7 @@
 
 namespace Code_Challenge.Migrations
 {
-    public partial class CodeChallengeMigration : Migration
+    public partial class MigrationCodeChallenge : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

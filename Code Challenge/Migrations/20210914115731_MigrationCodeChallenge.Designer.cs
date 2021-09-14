@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Code_Challenge.Migrations
 {
     [DbContext(typeof(CodeChallengeDbContext))]
-    [Migration("20210913084014_CodeChallengeMigration")]
-    partial class CodeChallengeMigration
+    [Migration("20210914115731_MigrationCodeChallenge")]
+    partial class MigrationCodeChallenge
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

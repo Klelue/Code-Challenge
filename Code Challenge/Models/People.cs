@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
@@ -69,6 +70,5 @@ namespace Code_Challenge.Models
             get => nameAddition;
             set => nameAddition = value;
         }
-
     }
 }
