@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
+using Code_Challenge.Models;
 using Code_Challenge.Util;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,6 +30,12 @@ namespace Code_Challenge.Controllers
             StringToDatabase stringToDatabase = new StringToDatabase();
             stringToDatabase.intoDatabase(values, _db);
 
+        }
+
+        [HttpGet]
+        public IEnumerable<People> Get()
+        {
+            return _db.People.ToArray();
         }
 
         private void DeleteTableRows()

@@ -25,14 +25,37 @@ namespace Code_Challenge.Controllers
         [HttpGet]
         public IEnumerable<Room> Get()
         {
-            return _db.Room.ToArray();
+            return RoomsWithPeople(_db.Room);
         }
 
         // GEt api/<RoomController>/5
-        [HttpGet("{id}")]
-        public IEnumerable<Room> Get(string roomNuber)
+        [HttpGet("{roomNumber}")]
+        public ActionResult<IEnumerable<Room>> Get(string roomNumber)
         {
-            return _db.Room.Where(x=> x.RoomNumber.Equals(roomNuber)).ToArray();
+            if (roomNumber.Length == 4)
+            {
+                
+                IEnumerable<Room> rooms = _db.Room.Where(x=> x.RoomNumber.Equals(roomNumber));
+                if(rooms.Any()){
+
+                    return Ok(RoomsWithPeople(rooms));
+                }
+
+                return NotFound("No room with this number found");
+            }
+
+            return BadRequest("Room number was not 4 digits");
         }
+
+        private IEnumerable<Room> RoomsWithPeople(IEnumerable<Room> rooms)
+        {
+            foreach (Room room in rooms)
+            {
+                List<People> peoples = _db.People.Where(people => people.RoomNumber.Equals(room.RoomNumber)).ToList();
+                room.Residents = peoples;
+            }
+            return rooms;
+        }
+
     }
 }

@@ -19,7 +19,6 @@ namespace Code_Challenge.Util
             foreach (string valueLine in valuesList)
             {
                 string[] values = valueLine.Split(",");
-                
                 rooms.Add(createRoom(values));
             }
 
@@ -44,7 +43,9 @@ namespace Code_Challenge.Util
             {
                 if (values[i].Length > 0)
                 {
-                    residents.Add(createPeople(values[i]));
+                    People people = createPeople(values[i]);
+                    people.RoomNumber = room.RoomNumber;
+                    residents.Add(people);
                 }
             }
 

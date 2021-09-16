@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
+using Microsoft.VisualBasic;
 
 
 namespace Code_Challenge.Models
@@ -21,6 +22,8 @@ namespace Code_Challenge.Models
         private String nameAddition;
 
         private String ldapUser;
+
+        private string roomNumber;
 
 
         public People(string ldapUser)
@@ -69,6 +72,14 @@ namespace Code_Challenge.Models
         {
             get => nameAddition;
             set => nameAddition = value;
+        }
+
+        [MaxLength (4)]
+        public String RoomNumber
+        {
+            get => roomNumber;
+            set => roomNumber = value;
+
         }
     }
 }
