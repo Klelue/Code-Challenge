@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Code_Challenge.Util
 {
@@ -22,8 +23,7 @@ namespace Code_Challenge.Util
             }
             catch (IOException e)
             {
-                Console.WriteLine(e);
-                throw;
+                throw ;
             }
             
 

@@ -13,15 +13,15 @@ namespace Code_Challenge.Models
     {
 
 
-        private String firstName;
+        private string firstName;
 
-        private String lastName;
+        private string lastName;
 
-        private String title;
+        private string title;
 
-        private String nameAddition;
+        private string nameAddition;
 
-        private String ldapUser;
+        private string ldapUser;
 
         private string roomNumber;
 
@@ -34,7 +34,7 @@ namespace Code_Challenge.Models
 
         [Key]
         [MaxLength (10)]
-        public String LdapUser
+        public string LdapUser
         {
             get => ldapUser;
             set => ldapUser = value;
@@ -42,7 +42,7 @@ namespace Code_Challenge.Models
 
         [RegularExpression(@"Dr\.")]
         [MaxLength (4)]
-        public String Title
+        public string Title
         {
             get => title;
             set => title = value;
@@ -51,7 +51,7 @@ namespace Code_Challenge.Models
         [RegularExpression(@"[A-Z][a-z]+")]
         [MaxLength (25)]
         [Required]
-        public String LastName
+        public string LastName
         {
             get => lastName;
             set => lastName = value;
@@ -60,7 +60,7 @@ namespace Code_Challenge.Models
         [RegularExpression(@"[A-Z][a-z]+(\s[A-Z][a-z]+)?")]
         [MaxLength (50)]
         [Required]
-        public String Firstname
+        public string Firstname
         {
             get => firstName;
             set => firstName = value;
@@ -68,14 +68,14 @@ namespace Code_Challenge.Models
 
         [RegularExpression(@"[(von)(van)(de)]")]
         [MaxLength (4)]
-        public String NameAddition
+        public string NameAddition
         {
             get => nameAddition;
             set => nameAddition = value;
         }
 
         [MaxLength (4)]
-        public String RoomNumber
+        public string RoomNumber
         {
             get => roomNumber;
             set => roomNumber = value;

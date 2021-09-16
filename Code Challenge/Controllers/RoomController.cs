@@ -14,18 +14,18 @@ namespace Code_Challenge.Controllers
     [ApiController]
     public class RoomController : Controller
     {
-        private readonly CodeChallengeDbContext _db;
+        private readonly CodeChallengeDbContext db;
 
         public RoomController(CodeChallengeDbContext db)
         {
-            _db = db;
+            this.db = db;
         }
 
         // GET api/<RoomController>
         [HttpGet]
         public IEnumerable<Room> Get()
         {
-            return RoomsWithPeople(_db.Room);
+            return RoomsWithPeople(db.Room);
         }
 
         // GEt api/<RoomController>/5
@@ -35,7 +35,7 @@ namespace Code_Challenge.Controllers
             if (roomNumber.Length == 4)
             {
                 
-                IEnumerable<Room> rooms = _db.Room.Where(x=> x.RoomNumber.Equals(roomNumber));
+                IEnumerable<Room> rooms = db.Room.Where(room=> IsRoomNumberCorrect(roomNumber, room));
                 if(rooms.Any()){
 
                     return Ok(RoomsWithPeople(rooms));
@@ -47,11 +47,16 @@ namespace Code_Challenge.Controllers
             return BadRequest("Room number was not 4 digits");
         }
 
+        private static bool IsRoomNumberCorrect(string roomNumber, Room room)
+        {
+            return room.RoomNumber.Equals(roomNumber);
+        }
+
         private IEnumerable<Room> RoomsWithPeople(IEnumerable<Room> rooms)
         {
             foreach (Room room in rooms)
             {
-                List<People> peoples = _db.People.Where(people => people.RoomNumber.Equals(room.RoomNumber)).ToList();
+                List<People> peoples = db.People.Where(people => people.RoomNumber.Equals(room.RoomNumber)).ToList();
                 room.Residents = peoples;
             }
             return rooms;

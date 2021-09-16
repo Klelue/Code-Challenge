@@ -11,7 +11,7 @@ namespace Code_Challenge.Util
 {
     public class StringToDatabase
     {
-        public void IntoDatabase(List<string> valuesList, CodeChallengeDbContext dbContext)
+        public ActionResult IntoDatabase(List<string> valuesList, CodeChallengeDbContext db)
         {
 
             List<Room> rooms = new List<Room>();
@@ -24,15 +24,15 @@ namespace Code_Challenge.Util
 
             try
             {
-                dbContext.Room.AddRange(rooms);
-                dbContext.SaveChanges();
+                db.Room.AddRange(rooms);
+                db.SaveChanges();
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                return new BadRequestResult();
             }
-            
+
+            return new OkResult();
         }
 
         private Room CreateRoom(string[] values)

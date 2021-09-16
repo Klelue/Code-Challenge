@@ -14,7 +14,8 @@ namespace Code_Challenge.Util
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Filename=MyDatabase.db");
+            optionsBuilder.UseSqlite("Filename=MyDatabase.db"); 
         }
+
     }
 }

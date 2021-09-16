@@ -13,36 +13,30 @@ namespace Code_Challenge.Controllers
     public class ImportController : ControllerBase
     {
 
-        private readonly CodeChallengeDbContext _db;
+        private readonly CodeChallengeDbContext db;
 
         public ImportController(CodeChallengeDbContext db)
         {
-            _db = db;
+            this.db = db;
         }
 
         // Post api/<ImportController>
         [HttpPost]
-        public void Post()
+        public ActionResult Post(string filePath)
         {
+            filePath = "C:\\Users\\kluenert\\source\\repos\\Code Challenge\\Code Challenge\\sitzplan.csv";
             DeleteTableRows();
-            List<string> values =
-                CSVReader.readFile("C:\\Users\\kluenert\\source\\repos\\Code Challenge\\Code Challenge\\sitzplan.csv");
+            List<string> values = CSVReader.readFile(filePath);
             StringToDatabase stringToDatabase = new StringToDatabase();
-            stringToDatabase.IntoDatabase(values, _db);
+            return stringToDatabase.IntoDatabase(values, db);
 
         }
-
-        [HttpGet]
-        public IEnumerable<People> Get()
-        {
-            return _db.People.ToArray();
-        }
-
+        
         private void DeleteTableRows()
         {
-            _db.Database.ExecuteSqlRaw("DELETE FROM People");
-            _db.Database.ExecuteSqlRaw("DELETE FROM Room");
-            _db.SaveChanges();
+            db.Database.ExecuteSqlRaw("DELETE FROM People");
+            db.Database.ExecuteSqlRaw("DELETE FROM Room");
+            db.SaveChanges();
         }
     }
 }
