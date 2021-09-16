@@ -11,7 +11,7 @@ namespace Code_Challenge.Util
 {
     public class StringToDatabase
     {
-        public void intoDatabase(List<string> valuesList, CodeChallengeDbContext dbContext)
+        public void IntoDatabase(List<string> valuesList, CodeChallengeDbContext dbContext)
         {
 
             List<Room> rooms = new List<Room>();
@@ -19,7 +19,7 @@ namespace Code_Challenge.Util
             foreach (string valueLine in valuesList)
             {
                 string[] values = valueLine.Split(",");
-                rooms.Add(createRoom(values));
+                rooms.Add(CreateRoom(values));
             }
 
             try
@@ -35,7 +35,7 @@ namespace Code_Challenge.Util
             
         }
 
-        private Room createRoom(string[] values)
+        private Room CreateRoom(string[] values)
         {
             Room room = new Room(values[0]);
             List<People> residents = new List<People>();
@@ -43,8 +43,7 @@ namespace Code_Challenge.Util
             {
                 if (values[i].Length > 0)
                 {
-                    People people = createPeople(values[i]);
-                    people.RoomNumber = room.RoomNumber;
+                    People people = CreatePeople(values[i], room.RoomNumber);
                     residents.Add(people);
                 }
             }
@@ -54,7 +53,7 @@ namespace Code_Challenge.Util
             return room;
         }
 
-        private People createPeople(string value)
+        private People CreatePeople(string value, string roomNumber)
         {
             List<string> peopleValues = value.Split(" ").ToList();
             string ldapUser = peopleValues[^1].Substring(1, peopleValues[^1].Length-2);
@@ -89,6 +88,7 @@ namespace Code_Challenge.Util
 
             people.Firstname = firstName.Substring(1);
 
+            people.RoomNumber = roomNumber;
             return people;
         }
     }

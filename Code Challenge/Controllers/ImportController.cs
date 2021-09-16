@@ -28,7 +28,7 @@ namespace Code_Challenge.Controllers
             List<string> values =
                 CSVReader.readFile("C:\\Users\\kluenert\\source\\repos\\Code Challenge\\Code Challenge\\sitzplan.csv");
             StringToDatabase stringToDatabase = new StringToDatabase();
-            stringToDatabase.intoDatabase(values, _db);
+            stringToDatabase.IntoDatabase(values, _db);
 
         }
 
