@@ -21,7 +21,7 @@ namespace Code_Challenge.Models
 
         [Key]
         [MaxLength (4)]
-        public String RoomNumber
+        public string RoomNumber
         {
             get => roomNumber;
             set => roomNumber = value;

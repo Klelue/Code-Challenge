@@ -6,7 +6,19 @@ namespace Code_Challenge.Util
 {
     public class CodeChallengeDbContext : DbContext
     {
-        public CodeChallengeDbContext(DbContextOptions<CodeChallengeDbContext> options) : base(options) { }
+        private bool isExecuted = false;
+
+        public CodeChallengeDbContext(DbContextOptions<CodeChallengeDbContext> options) : base(options)
+        {
+            if (isExecuted == false)
+            {
+                Database.ExecuteSqlRaw("DELETE FROM People");
+                Database.ExecuteSqlRaw("DELETE FROM Room");
+                SaveChanges();
+                isExecuted = true;
+            }
+            
+        }
 
         public DbSet<Room> Room { get; set; }
 
@@ -14,8 +26,7 @@ namespace Code_Challenge.Util
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Filename=MyDatabase.db"); 
+            optionsBuilder.UseSqlite("Filename=MyDatabase.db");
         }
-
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using Code_Challenge.Models;
 using Code_Challenge.Util;
@@ -25,7 +26,7 @@ namespace Code_Challenge.Controllers
         public ActionResult Post(string filePath)
         {
             filePath = "C:\\Users\\kluenert\\source\\repos\\Code Challenge\\Code Challenge\\sitzplan.csv";
-            DeleteTableRows();
+            //DeleteTableRows();
             List<string> values = CSVReader.readFile(filePath);
             StringToDatabase stringToDatabase = new StringToDatabase();
             return stringToDatabase.IntoDatabase(values, db);
@@ -38,5 +39,7 @@ namespace Code_Challenge.Controllers
             db.Database.ExecuteSqlRaw("DELETE FROM Room");
             db.SaveChanges();
         }
+
+       
     }
 }

@@ -35,7 +35,7 @@ namespace Code_Challenge.Controllers
             if (roomNumber.Length == 4)
             {
                 
-                IEnumerable<Room> rooms = db.Room.Where(room=> IsRoomNumberCorrect(roomNumber, room));
+                IEnumerable<Room> rooms = db.Room.Where(room=> room.RoomNumber.Equals(roomNumber));
                 if(rooms.Any()){
 
                     return Ok(RoomsWithPeople(rooms));
@@ -47,7 +47,7 @@ namespace Code_Challenge.Controllers
             return BadRequest("Room number was not 4 digits");
         }
 
-        private static bool IsRoomNumberCorrect(string roomNumber, Room room)
+        private bool IsRoomNumberCorrect(string roomNumber, Room room)
         {
             return room.RoomNumber.Equals(roomNumber);
         }

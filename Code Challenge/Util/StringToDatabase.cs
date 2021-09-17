@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Threading.Tasks.Sources;
 using Code_Challenge.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace Code_Challenge.Util
 {
     public class StringToDatabase
     {
-        public ActionResult IntoDatabase(List<string> valuesList, CodeChallengeDbContext db)
+        public ActionResult IntoDatabase(List<string> valuesList, CodeChallengeDbContext dbContext)
         {
 
             List<Room> rooms = new List<Room>();
@@ -24,8 +21,8 @@ namespace Code_Challenge.Util
 
             try
             {
-                db.Room.AddRange(rooms);
-                db.SaveChanges();
+                dbContext.Room.AddRange(rooms);
+                dbContext.SaveChanges();
             }
             catch (Exception e)
             {
