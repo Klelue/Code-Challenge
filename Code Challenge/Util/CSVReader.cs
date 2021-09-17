@@ -7,7 +7,7 @@ namespace Code_Challenge.Util
 {
     public static class CSVReader
     {
-        public static List<string> readFile(string Filepath)
+        public static ActionResult<List<string>> readFile(string Filepath)
         {
             List<string> readedFile = new List<string>();
             try
@@ -23,7 +23,7 @@ namespace Code_Challenge.Util
             }
             catch (IOException e)
             {
-                throw ;
+                return new BadRequestObjectResult("This was no valid csv data") ;
             }
             
 

@@ -26,20 +26,17 @@ namespace Code_Challenge.Controllers
         public ActionResult Post(string filePath)
         {
             filePath = "C:\\Users\\kluenert\\source\\repos\\Code Challenge\\Code Challenge\\sitzplan.csv";
-            //DeleteTableRows();
-            List<string> values = CSVReader.readFile(filePath);
-            StringToDatabase stringToDatabase = new StringToDatabase();
-            return stringToDatabase.IntoDatabase(values, db);
+            ActionResult<List<string>> values = CSVReader.readFile(filePath);
+            if (values.Value.Count > 0)
+            {
+                StringToDatabase stringToDatabase = new StringToDatabase(db);
+                return stringToDatabase.IntoDatabase(values.Value);
+            }
+
+            return values.Result;
+
 
         }
         
-        private void DeleteTableRows()
-        {
-            db.Database.ExecuteSqlRaw("DELETE FROM People");
-            db.Database.ExecuteSqlRaw("DELETE FROM Room");
-            db.SaveChanges();
-        }
-
-       
     }
 }

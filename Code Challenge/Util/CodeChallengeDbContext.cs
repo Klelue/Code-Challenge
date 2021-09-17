@@ -5,20 +5,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Code_Challenge.Util
 {
     public class CodeChallengeDbContext : DbContext
-    {
-        private bool isExecuted = false;
-
-        public CodeChallengeDbContext(DbContextOptions<CodeChallengeDbContext> options) : base(options)
-        {
-            if (isExecuted == false)
-            {
-                Database.ExecuteSqlRaw("DELETE FROM People");
-                Database.ExecuteSqlRaw("DELETE FROM Room");
-                SaveChanges();
-                isExecuted = true;
-            }
-            
-        }
+    { 
+        public CodeChallengeDbContext(DbContextOptions<CodeChallengeDbContext> options) : base(options){ }
 
         public DbSet<Room> Room { get; set; }
 

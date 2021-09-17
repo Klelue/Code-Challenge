@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using Code_Challenge.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Code_Challenge.Util
 {
     public class StringToDatabase
     {
-        public ActionResult IntoDatabase(List<string> valuesList, CodeChallengeDbContext dbContext)
+        private CodeChallengeDbContext db;
+        public StringToDatabase(CodeChallengeDbContext db)
+        {
+            this.db = db;
+        }
+
+        public ActionResult IntoDatabase(List<string> valuesList)
         {
 
             List<Room> rooms = new List<Room>();
@@ -19,17 +26,33 @@ namespace Code_Challenge.Util
                 rooms.Add(CreateRoom(values));
             }
 
+            foreach (Room room in rooms)
+            {
+                if(rooms.FindAll(r => r.RoomNumber == room.RoomNumber).Count > 1)
+                {
+                    return new BadRequestObjectResult("There is a duplicate room number");
+                }
+
+                foreach (People people in room.Residents)
+                {
+                    if (room.Residents.FindAll(p => p.LdapUser.Equals(people.LdapUser)).Count > 1)
+                    {
+                        return new BadRequestObjectResult("There is a duplicate person"); 
+                    }
+                }
+            }
             try
             {
-                dbContext.Room.AddRange(rooms);
-                dbContext.SaveChanges();
+                DeleteTableRows();
+                db.Room.AddRange(rooms);
+                db.SaveChanges();
             }
             catch (Exception e)
             {
-                return new BadRequestResult();
+                return new BadRequestObjectResult("Something went wrong with adding values to database");
             }
 
-            return new OkResult();
+            return new OkObjectResult("Import went well");
         }
 
         private Room CreateRoom(string[] values)
@@ -87,6 +110,13 @@ namespace Code_Challenge.Util
 
             people.RoomNumber = roomNumber;
             return people;
+        }
+
+        private void DeleteTableRows()
+        {
+            db.Database.ExecuteSqlRaw("DELETE FROM People");
+            db.Database.ExecuteSqlRaw("DELETE FROM Room");
+            db.SaveChanges();
         }
     }
 }
