@@ -26,7 +26,7 @@ namespace Code_Challenge.Controllers
         public ActionResult Post(string filePath)
         {
             filePath = "C:\\Users\\kluenert\\source\\repos\\Code Challenge\\Code Challenge\\sitzplan.csv";
-            ActionResult<List<string>> values = CSVReader.readFile(filePath);
+            ActionResult<List<string>> values = CSVReader.ReadFile(filePath);
             if (values.Value.Count > 0)
             {
                 StringToDatabase stringToDatabase = new StringToDatabase(db);

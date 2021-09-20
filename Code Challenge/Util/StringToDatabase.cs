@@ -25,7 +25,7 @@ namespace Code_Challenge.Util
                 string[] values = valueLine.Split(",");
                 rooms.Add(CreateRoom(values));
             }
-            return ContainsDublicates(rooms, out var actionResult) ? actionResult : SaveRoomsIntoDatabase(rooms);
+            return ContainsDuplicates(rooms, out var actionResult) ? actionResult : SaveRoomsIntoDatabase(rooms);
         }
 
         private ActionResult SaveRoomsIntoDatabase(List<Room> rooms)
@@ -44,10 +44,11 @@ namespace Code_Challenge.Util
             return new OkObjectResult("Import went well");
         }
 
-        private static bool ContainsDublicates(List<Room> rooms, out ActionResult actionResult)
+        private static bool ContainsDuplicates(List<Room> rooms, out ActionResult actionResult)
         {
             foreach (Room room in rooms)
             {
+                //Search for Room duplicates
                 if (rooms.FindAll(r => r.RoomNumber == room.RoomNumber).Count > 1)
                 {
                     {
@@ -56,15 +57,11 @@ namespace Code_Challenge.Util
                     }
                 }
 
-                foreach (People people in room.Residents)
+                //Search for People duplicates
+                if (room.Residents.Any(people => room.Residents.FindAll(p => p.LdapUser.Equals(people.LdapUser)).Count > 1))
                 {
-                    if (room.Residents.FindAll(p => p.LdapUser.Equals(people.LdapUser)).Count > 1)
-                    {
-                        {
-                            actionResult = new BadRequestObjectResult("There is a duplicate person");
-                            return true;
-                        }
-                    }
+                    actionResult = new BadRequestObjectResult("There is a duplicate person");
+                    return true;
                 }
             }
 
@@ -78,11 +75,9 @@ namespace Code_Challenge.Util
             List<People> residents = new List<People>();
             for(int i = 1; i < values.Length; i++)
             {
-                if (values[i].Length > 0)
-                {
-                    People people = CreatePeople(values[i], room.RoomNumber);
-                    residents.Add(people);
-                }
+                if (values[i].Length <= 0) continue;
+                People people = CreatePeople(values[i], room.RoomNumber);
+                residents.Add(people);
             }
 
             room.Residents = residents;
@@ -90,7 +85,7 @@ namespace Code_Challenge.Util
             return room;
         }
 
-        private People CreatePeople(string value, string roomNumber)
+        private static People CreatePeople(string value, string roomNumber)
         {
             List<string> peopleValues = value.Split(" ").ToList();
             string ldapUser = peopleValues[^1].Substring(1, peopleValues[^1].Length-2);
@@ -107,21 +102,15 @@ namespace Code_Challenge.Util
             string[] nameAdditions = {"von", "van", "de"};
             foreach (string nameAddition in nameAdditions)
             {
-                if (peopleValues.Contains(nameAddition))
-                {
-                    people.NameAddition = nameAddition;
-                    peopleValues.Remove(nameAddition);
-                }
+                if (!peopleValues.Contains(nameAddition)) continue;
+                people.NameAddition = nameAddition;
+                peopleValues.Remove(nameAddition);
             }
 
             people.LastName = peopleValues[^1];
             peopleValues.RemoveAt(peopleValues.Count-1);
 
-            string firstName = "";
-            foreach (string name in peopleValues)
-            {
-                firstName += " " + name;
-            }
+            string firstName = peopleValues.Aggregate("", (current, name) => current + (" " + name));
 
             people.Firstname = firstName.Substring(1);
 

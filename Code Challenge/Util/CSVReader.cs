@@ -7,9 +7,9 @@ namespace Code_Challenge.Util
 {
     public static class CSVReader
     {
-        public static ActionResult<List<string>> readFile(string Filepath)
+        public static ActionResult<List<string>> ReadFile(string Filepath)
         {
-            List<string> readedFile = new List<string>();
+            List<string> stringListValues = new List<string>();
             try
             {
                 using (var reader = new StreamReader(@Filepath))
@@ -17,7 +17,7 @@ namespace Code_Challenge.Util
                     while(!reader.EndOfStream)
                     {
                         string line = reader.ReadLine();
-                        readedFile.Add(line);
+                        stringListValues.Add(line);
                     }
                 }
             }
@@ -27,7 +27,7 @@ namespace Code_Challenge.Util
             }
             
 
-            return readedFile;
+            return stringListValues;
         }
     }
 }
