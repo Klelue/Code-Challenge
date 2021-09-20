@@ -30,7 +30,7 @@ namespace Code_Challenge.Controllers
             if (values.Value.Count > 0)
             {
                 StringToDatabase stringToDatabase = new StringToDatabase(db);
-                return stringToDatabase.IntoDatabase(values.Value);
+                return stringToDatabase.SaveStringsIntoDatabase(values.Value);
             }
 
             return values.Result;

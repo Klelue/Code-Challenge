@@ -15,7 +15,7 @@ namespace Code_Challenge.Util
             this.db = db;
         }
 
-        public ActionResult IntoDatabase(List<string> valuesList)
+        public ActionResult SaveStringsIntoDatabase(List<string> valuesList)
         {
 
             List<Room> rooms = new List<Room>();
@@ -25,22 +25,11 @@ namespace Code_Challenge.Util
                 string[] values = valueLine.Split(",");
                 rooms.Add(CreateRoom(values));
             }
+            return ContainsDublicates(rooms, out var actionResult) ? actionResult : SaveRoomsIntoDatabase(rooms);
+        }
 
-            foreach (Room room in rooms)
-            {
-                if(rooms.FindAll(r => r.RoomNumber == room.RoomNumber).Count > 1)
-                {
-                    return new BadRequestObjectResult("There is a duplicate room number");
-                }
-
-                foreach (People people in room.Residents)
-                {
-                    if (room.Residents.FindAll(p => p.LdapUser.Equals(people.LdapUser)).Count > 1)
-                    {
-                        return new BadRequestObjectResult("There is a duplicate person"); 
-                    }
-                }
-            }
+        private ActionResult SaveRoomsIntoDatabase(List<Room> rooms)
+        {
             try
             {
                 DeleteTableRows();
@@ -53,6 +42,34 @@ namespace Code_Challenge.Util
             }
 
             return new OkObjectResult("Import went well");
+        }
+
+        private static bool ContainsDublicates(List<Room> rooms, out ActionResult actionResult)
+        {
+            foreach (Room room in rooms)
+            {
+                if (rooms.FindAll(r => r.RoomNumber == room.RoomNumber).Count > 1)
+                {
+                    {
+                        actionResult = new BadRequestObjectResult("There is a duplicate room number");
+                        return true;
+                    }
+                }
+
+                foreach (People people in room.Residents)
+                {
+                    if (room.Residents.FindAll(p => p.LdapUser.Equals(people.LdapUser)).Count > 1)
+                    {
+                        {
+                            actionResult = new BadRequestObjectResult("There is a duplicate person");
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            actionResult = new OkObjectResult("No duplicates");
+            return false;
         }
 
         private Room CreateRoom(string[] values)

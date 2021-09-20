@@ -46,12 +46,7 @@ namespace Code_Challenge.Controllers
 
             return BadRequest("Room number was not 4 digits");
         }
-
-        private bool IsRoomNumberCorrect(string roomNumber, Room room)
-        {
-            return room.RoomNumber.Equals(roomNumber);
-        }
-
+        
         private IEnumerable<Room> RoomsWithPeople(IEnumerable<Room> rooms)
         {
             foreach (Room room in rooms)
