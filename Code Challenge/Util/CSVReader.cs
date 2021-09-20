@@ -23,7 +23,7 @@ namespace Code_Challenge.Util
             }
             catch (IOException e)
             {
-                return new BadRequestObjectResult("This was no valid csv data") ;
+                return new BadRequestObjectResult("This was no valid csv data");
             }
             
 

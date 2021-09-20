@@ -52,6 +52,7 @@ namespace Code_Challenge.Models
         [RegularExpression(@"[A-Z][a-z]+")]
         [MaxLength (25)]
         [Required]
+        [JsonPropertyName("last name")]
         public string LastName
         {
             get => lastName;
@@ -61,6 +62,7 @@ namespace Code_Challenge.Models
         [RegularExpression(@"[A-Z][a-z]+(\s[A-Z][a-z]+)?")]
         [MaxLength (50)]
         [Required]
+        [JsonPropertyName("first name")]
         public string Firstname
         {
             get => firstName;
@@ -69,6 +71,7 @@ namespace Code_Challenge.Models
 
         [RegularExpression(@"[(von)(van)(de)]")]
         [MaxLength (4)]
+        [JsonPropertyName("name addition")]
         public string NameAddition
         {
             get => nameAddition;
