@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Code_Challenge.Models;
 using Code_Challenge.Util;
+using static Code_Challenge.Util.JsonErrorCode;
 
 namespace Code_Challenge.Controllers
 {
@@ -39,10 +40,10 @@ namespace Code_Challenge.Controllers
                     return Ok(RoomsWithPeople(rooms));
                 }
 
-                return NotFound("No room with this number found");
+                return NotFound(ErrorCodeAsJson(404, "Room number was not 4 digits"));
             }
 
-            return BadRequest("Room number was not 4 digits");
+            return BadRequest(ErrorCodeAsJson(400, "Room number was not 4 digits"));
         }
         
         private IEnumerable<Room> RoomsWithPeople(IEnumerable<Room> rooms)

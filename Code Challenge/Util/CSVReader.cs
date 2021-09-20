@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
+using static Code_Challenge.Util.JsonErrorCode;
 
 namespace Code_Challenge.Util
 {
@@ -23,7 +24,7 @@ namespace Code_Challenge.Util
             }
             catch (IOException e)
             {
-                return new BadRequestObjectResult("This was no valid csv data");
+                return new BadRequestObjectResult(ErrorCodeAsJson(400, "This was no valid csv data"));
             }
             
 

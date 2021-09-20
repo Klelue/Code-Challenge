@@ -4,6 +4,7 @@ using System.Linq;
 using Code_Challenge.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static Code_Challenge.Util.JsonErrorCode;
 
 namespace Code_Challenge.Util
 {
@@ -38,7 +39,7 @@ namespace Code_Challenge.Util
             }
             catch (Exception e)
             {
-                return new BadRequestObjectResult("Something went wrong with adding values to database");
+                return new BadRequestObjectResult(ErrorCodeAsJson(400, "Something went wrong with adding values to database"));
             }
 
             return new OkObjectResult("Import went well");
@@ -52,7 +53,7 @@ namespace Code_Challenge.Util
                 if (rooms.FindAll(r => r.RoomNumber == room.RoomNumber).Count > 1)
                 {
                     {
-                        actionResult = new BadRequestObjectResult("There is a duplicate room number");
+                        actionResult = new BadRequestObjectResult(ErrorCodeAsJson(400,"There is a duplicate room number"));
                         return true;
                     }
                 }
@@ -60,7 +61,7 @@ namespace Code_Challenge.Util
                 //Search for People duplicates
                 if (room.Residents.Any(people => room.Residents.FindAll(p => p.LdapUser.Equals(people.LdapUser)).Count > 1))
                 {
-                    actionResult = new BadRequestObjectResult("There is a duplicate person");
+                    actionResult = new BadRequestObjectResult(ErrorCodeAsJson(400, "There is a duplicate person"));
                     return true;
                 }
             }

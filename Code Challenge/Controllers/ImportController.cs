@@ -7,6 +7,7 @@ using Code_Challenge.Models;
 using Code_Challenge.Util;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using static Code_Challenge.Util.JsonErrorCode;
 
 namespace Code_Challenge.Controllers
 {
@@ -44,7 +45,7 @@ namespace Code_Challenge.Controllers
                 return SaveStringsIntoDatabase(filePath);
             }
 
-            return BadRequest("Empty File");
+            return BadRequest(ErrorCodeAsJson(400, "Empty File"));
         }
 
         private ActionResult SaveStringsIntoDatabase(string filePath)
