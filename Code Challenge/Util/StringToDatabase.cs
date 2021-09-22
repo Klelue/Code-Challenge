@@ -47,6 +47,8 @@ namespace Code_Challenge.Util
 
         private static bool ContainsDuplicates(List<Room> rooms, out ActionResult actionResult)
         {
+
+            List<People> peoples = new();
             foreach (Room room in rooms)
             {
                 //Search for Room duplicates
@@ -58,12 +60,14 @@ namespace Code_Challenge.Util
                     }
                 }
 
-                //Search for People duplicates
-                if (room.Residents.Any(people => room.Residents.FindAll(p => p.LdapUser.Equals(people.LdapUser)).Count > 1))
-                {
-                    actionResult = new BadRequestObjectResult(ErrorCodeAsJson(400, "There is a duplicate person"));
-                    return true;
-                }
+                peoples.AddRange(room.Residents);
+            }
+
+            //Search for People duplicates
+            if (peoples.Any(people => peoples.FindAll(p => p.LdapUser.Equals(people.LdapUser)).Count > 1))
+            {
+                actionResult = new BadRequestObjectResult(ErrorCodeAsJson(400, "There is a duplicate person"));
+                return true;
             }
 
             actionResult = new OkObjectResult("No duplicates");
